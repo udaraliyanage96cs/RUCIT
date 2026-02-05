@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 Route::get('/events',[APIController::class,'getData']);
 Route::post('/create',[APIController::class,'store']);
 Route::put('/update/{id}',[APIController::class,'update']);
+
 Route::delete('/delete/{id}',[APIController::class,'delete']);
 Route::get('/event/{id}',[APIController::class,'event']);
 

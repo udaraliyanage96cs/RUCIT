@@ -37,18 +37,27 @@ class APIController extends Controller
         ],201);
     }
 
-    public function update(Request $request){
-        $event = Event::find($request->id);
+    public function update(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+
         $event->update([
-            'event_title' => $request->event_title
+            'event_title' => $request->event_title,
+            'description' => $request->description,
+            'event_date' => $request->event_date,
+            'event_time' => $request->event_time,
+            'location' => $request->location,
+            'max_participants' => $request->max_participants,
+            'status' => $request->status,
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => "Event Updated Successfully",
+            'message' => 'Event updated successfully',
             'data' => $event
-        ],200);
+        ]);
     }
+
 
     public function delete(Request $request){
         $event = Event::find($request->id);
