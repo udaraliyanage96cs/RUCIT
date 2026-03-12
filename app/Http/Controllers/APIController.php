@@ -40,7 +40,13 @@ class APIController extends Controller
     public function update(Request $request){
         $event = Event::find($request->id);
         $event->update([
-            'event_title' => $request->event_title
+            'event_title' => $request->event_title,
+            'event_description' => $request->description,
+            'location' => $request->location,
+            'event_date' => $request->event_date,
+            'event_time' => $request->event_time,
+            'status' => $request->status,
+            'max_participants' => $request->max_participants
         ]);
 
         return response()->json([
