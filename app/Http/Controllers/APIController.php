@@ -8,7 +8,7 @@ use App\Models\Event;
 class APIController extends Controller
 {
     public function getData(Request $request){
-        $events = Event::get();
+        $events = Event::orderBy('id','desc')->get();
 
         return response()->json([
             'success' => true,

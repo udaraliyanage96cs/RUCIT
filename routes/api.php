@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/delete/{id}', [APIController::class, 'delete']);
 
     // Event registrations
-    Route::post('/events/join',                           [EventRegistrationController::class, 'join']);
+    Route::post('/events/join',   [EventRegistrationController::class, 'join']);
     Route::delete('/events/leave/{event_id}',             [EventRegistrationController::class, 'leave']);
     Route::get('/my-events',                              [EventRegistrationController::class, 'myEvents']);
     Route::get('/events/{event_id}/registrations',        [EventRegistrationController::class, 'eventRegistrations']);
