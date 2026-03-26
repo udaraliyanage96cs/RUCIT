@@ -13,6 +13,17 @@ class Event extends Model
         'event_time',
         'location',
         'max_participants',
-        'status'
+        'status',
     ];
+
+    public function registrations()
+    {
+        return $this->hasMany(EventRegistration::class);
+    }
+
+    public function registeredUsers()
+    {
+        return $this->belongsToMany(User::class, 'event_registrations')
+            ->wherePivot('status', 'registered');
+    }
 }
