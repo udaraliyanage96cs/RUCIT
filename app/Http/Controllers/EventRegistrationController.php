@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventRegistration;
 use App\Models\Event;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EventRegistrationConfirmation;
+use App\Mail\EventLeaveConfirmation;
 
 class EventRegistrationController extends Controller
 {
@@ -62,9 +65,13 @@ class EventRegistrationController extends Controller
             'status'   => 'registered',
         ]);
 
+
+        $registration->load(['user','event']);
+        Mail::to($registration->user->email)->send(new EventRegistrationConfirmation($registration));
+
         return response()->json([
-            'message'      => 'Successfully joined the event!',
-            'registration' => $registration->load('event'),
+            'message'      => 'Successfully joined the event! Confirmation email sent.',
+            'registration' => $registration,
         ], 201);
     }
 
@@ -85,6 +92,9 @@ class EventRegistrationController extends Controller
             ], 404);
         }
 
+
+        $registration->load(['user','event']);
+        Mail::to($registration->user->email)->send(new EventLeaveConfirmation($registration));
         $registration->update(['status' => 'cancelled']);
 
         return response()->json([
